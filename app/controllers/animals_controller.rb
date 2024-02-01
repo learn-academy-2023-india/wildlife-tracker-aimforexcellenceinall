@@ -1,6 +1,7 @@
 class AnimalsController < ApplicationController
-
-    # GET /animals
+    skip_before_action :verify_authenticity_token
+    
+    # In Localhost:3000 and Postman: GET /animals
     def index
         @animals = Animal.all
         render json: @animals
