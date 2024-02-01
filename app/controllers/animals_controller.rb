@@ -1,15 +1,22 @@
 class AnimalsController < ApplicationController
     skip_before_action :verify_authenticity_token
-    
+
     # In Localhost:3000 and Postman: GET /animals
     def index
         @animals = Animal.all
         render json: @animals
     end
 
-    #GET /animals/1
+    #Story 1: 
+    # GET /animals/1
+    # def show
+    #     render json: @animal
+    # end
+    # Story 3: 
+    # See one animal with all its associated sightings --> include the animal's sightings
     def show
-        render json: @animal
+        @animal = Animal.includes(:sightings).find(params[:id])
+        render json: @animal, include: :sightings
     end
 
     # POST /animals

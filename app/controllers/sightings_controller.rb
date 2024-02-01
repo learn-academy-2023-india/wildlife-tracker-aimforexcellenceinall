@@ -1,9 +1,17 @@
 class SightingsController < ApplicationController
     skip_before_action :verify_authenticity_token
 
+    # Story 1:
+    # Get all sightings between the start date and end date
+    # def index
+    #     @sightings = Sighting.where(date: params[:start_date]..params[:end_date])
+    #     render json: @sightings
+    # end
+    # Story 3: 
+    # See all sightings within a given time period. --> filter sightings by date 
     def index
-        @sightings = Sighting.where(date: params[:start_date]..params[:end_date])
-        render json: @sightings
+        sightings = Sighting.where(date: params[:start_date]..params[:end_date])
+        render json: sightings
     end
 
     def show
