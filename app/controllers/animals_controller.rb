@@ -51,7 +51,32 @@ class AnimalsController < ApplicationController
     end
 
     # Allows certain data to be passed
+    # Story 5:
+    # With the accepts_nested_attributes_for method in my animal.rb, sighting attributes in the animal_params method ensures that when a request is made to create a new animal, the sighting data can be included in the same request, thus, enabling nested parameters for sightings
     def animal_params
-        params.require(:animal).permit(:common_name, :scientific_binomial)
+        params.require(:animal).permit(:common_name, :scientific_binomial, sightings_attributes: [:latitude, :longitude, :date])
     end
+
+    # --> POST /animals / Body / raw / JSON
+    # {
+    #     {"animal": {
+            # "common_name": "Turkey",
+            # "scientific_binomial": "Meleagris gallopavo",
+            # "sightings_attributes": [
+                # {
+                    # "latitude": 45.5122,
+                    # "longitude": -122.6587,
+                    # "date": "2024-02-01"
+                # }
+            # ]
+        # }}
+
+    # Body / Pretty / JSON
+    # {
+    # "id": 6,
+    # "common_name": "Turkey",
+    # "scientific_binomial": "Meleagris gallopavo",
+    # "created_at": "2024-02-02T05:15:54.708Z",
+    # "updated_at": "2024-02-02T05:15:54.708Z"
+    # }
 end
